@@ -10,43 +10,68 @@ const {
   REACT_APP_DISCORD_AUTH_SCOPE: discordAuthScope,
 } = process.env;
 
-const authCsrfCookieName = "auth-csrf";
+const discordAuthCsrf = "discord-auth-csrf";
 
-const getAccessCode = () => {
-  const content = randombytes(16).toString("base64");
-  // TODO cookie flag secure check
-  document.cookie = `${authCsrfCookieName}:${content}; Secure`;
+const discordStartLogin = () => {
+  const csrfContent = randombytes(16).toString("hex");
+  localStorage.setItem(discordAuthCsrf, csrfContent);
+
   const data = {
     client_id: discordClienId,
-    redirect_uri: discordLoginRedirect,
     response_type: "code",
     scope: discordAuthScope,
+    redirect_uri: discordLoginRedirect,
+    state: csrfContent,
   };
 
   document.location.href = `${discordApiUrl}/oauth2/authorize${qs.stringify(data, { addQueryPrefix: true })}`;
 };
 
-const validateAccessCodeCsrf = (state) => {
-  // TODO cookies extract utils
-  const cookies = Object.fromEntries(document.cookie.split("; ").map((strCookie) => strCookie.split("=")));
-  const authCsrfCookie = cookies[authCsrfCookieName];
-  return authCsrfCookie === state;
+const validateAccessCodeCsrf = (csrfToken) => {
+  const storedDiscordAuthCsrf = localStorage.getItem(discordAuthCsrf);
+  return csrfToken === storedDiscordAuthCsrf;
 };
 
-const getTokenFromAccessCode = async (accessCode) => discordHttp.get("/oauth2/token", {
-  client_id: discordClienId,
-  client_secret: discordClienSecret,
-  grant_type: "authorization_code",
-  code: accessCode,
-});
+const cleanDiscordAuthCsrf = () => localStorage.removeItem(discordAuthCsrf);
 
-const refreshToken = async (refreshToken) => discordHttp.get("/oauth2/token", {
+const discordAuthenticate = async (accessCode) => {
+  const params = new URLSearchParams();
+  params.append("client_id", discordClienId);
+  params.append("client_secret", discordClienSecret);
+  params.append("grant_type", "authorization_code");
+  params.append("redirect_uri", discordLoginRedirect);
+  params.append("code", accessCode);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+
+  return discordHttp.post("/oauth2/token", params, config);
+};
+
+const revokeToken = async (tokenToRevoke) => {
+  const params = new URLSearchParams();
+  params.append("token", tokenToRevoke);
+
+  const clientCredentials = btoa(`${discordClienId}:${discordClienSecret}`);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${clientCredentials}`,
+    },
+  };
+
+  return discordHttp.post("/oauth2/token/revoke", params, config);
+};
+const refreshToken = async (token) => discordHttp.post("/oauth2/token", {
   client_id: discordClienId,
   client_secret: discordClienSecret,
   grant_type: "refresh_token",
-  code: refreshToken,
+  refresh_token: token,
 });
 
 export {
-  getAccessCode, validateAccessCodeCsrf, getTokenFromAccessCode, refreshToken,
+  discordStartLogin, revokeToken, validateAccessCodeCsrf, discordAuthenticate, refreshToken, cleanDiscordAuthCsrf,
 };

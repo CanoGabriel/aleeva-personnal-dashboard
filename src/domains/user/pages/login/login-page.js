@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../components/auth-context/auth-context";
 
-const LoginPage = () => (
-  <div>
-    <h1>login</h1>
-    <a
-      // eslint-disable-next-line max-len
-      href="https://discord.com/api/oauth2/authorize?client_id=822565567449268305&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify"
-    >
-      test
-    </a>
-  </div>
-);
+const LoginPage = () => {
+  const { discordLogin } = useContext(AuthContext);
+
+  return (
+    <div>
+      <h1>login page</h1>
+      <button type="button" onClick={discordLogin}>Discord Login</button>
+    </div>
+  );
+};
 
 export default LoginPage;
