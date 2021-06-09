@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as LoginPage } from "./pages/login/login-page";
+export * from "./components/auth-context/auth-context";
