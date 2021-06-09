@@ -1,13 +1,19 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../../core";
+import { ReactComponent as DiscordLogo } from "../../assets/discord-logo.svg";
+import "./login-page.scss";
 
 const LoginPage = () => {
   const { discordLogin } = useContext(AuthContext);
 
   return (
-    <div>
-      <h1>login page</h1>
-      <button type="button" onClick={discordLogin}>Discord Login</button>
+    <div className="login-page">
+      <div className="login-page__signin">
+        <span className="signin__text">Connexion :</span>
+        <button className="signin__button" type="button" onClick={discordLogin}>
+          <DiscordLogo className="discord-logo" />
+        </button>
+      </div>
     </div>
   );
 };
