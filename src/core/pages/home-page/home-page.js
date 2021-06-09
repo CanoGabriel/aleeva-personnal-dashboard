@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../domains/user";
+import { AuthContext } from "../../components/auth-context/auth-context";
 
 const HomePage = () => {
   const { discordAuthInfo, discordLogout } = useContext(AuthContext);

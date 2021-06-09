@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getLocalstorageDiscordAuthInfo } from "../../domains/user/utils/auth-localstorage-utils";
+import { getLocalstorageDiscordAuthInfo } from "../../core/utils/auth-localstorage-utils";
 
 const { REACT_APP_DISCORD_API_URL } = process.env;
 

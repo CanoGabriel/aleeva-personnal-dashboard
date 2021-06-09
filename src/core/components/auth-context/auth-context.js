@@ -1,4 +1,6 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, {
+  useEffect, useState, useMemo, createContext,
+} from "react";
 import PropTypes from "prop-types";
 import qs from "qs";
 import { useLocation, useHistory } from "react-router-dom";
@@ -13,6 +15,9 @@ const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [discordAuthInfo, setDiscordAuthInfo] = useState({});
+  const [authLoading, setAuthLoading] = useState(true);
+
+  const isSignedIn = useMemo(() => Boolean(discordAuthInfo?.accessToken), [discordAuthInfo?.accessToken]);
 
   const location = useLocation();
   const browserHistory = useHistory();
@@ -40,32 +45,34 @@ const AuthProvider = ({ children }) => {
     setDiscordAuthInfo({});
   };
 
-  const setupAuthentication = () => {
+  const setupAuthentication = async () => {
     const { code, state } = queryParam;
-    if (!discordAuthInfo?.accessToken && code && state && validateAccessCodeCsrf(state)) {
-      cleanDiscordAuthCsrf();
-
-      discordAuthenticate(code).then((response) => {
-        const { access_token: accessToken, refresh_token: refreshToken, scope } = response.data;
-        setDiscordAuthInfo({ accessToken, refreshToken, scope });
-        setLocalstorageDiscordAuthInfo({ accessToken, refreshToken, scope });
-        browserHistory.replace(location.pathname);
-      });
-    }
-  };
-
-  const initAuthentication = () => {
     const storedDiscordAuthInfo = getLocalstorageDiscordAuthInfo();
+
     if (storedDiscordAuthInfo && !discordAuthInfo.accessToken) {
       setDiscordAuthInfo(storedDiscordAuthInfo);
+      setAuthLoading(false);
+    } else if (!discordAuthInfo?.accessToken && code && state && validateAccessCodeCsrf(state)) {
+      const response = await discordAuthenticate(code);
+      const { access_token: accessToken, refresh_token: refreshToken, scope } = response.data;
+      cleanDiscordAuthCsrf();
+      setDiscordAuthInfo({ accessToken, refreshToken, scope });
+      setLocalstorageDiscordAuthInfo({ accessToken, refreshToken, scope });
+      browserHistory.replace(location.pathname);
     }
+
+    setAuthLoading(false);
   };
 
-  useEffect(initAuthentication, []);
-  useEffect(setupAuthentication, [queryParam]);
+  useEffect(() => {
+    setupAuthentication();
+  }, [queryParam]);
 
   return (
-    <AuthContext.Provider value={{ discordAuthInfo, discordLogin, discordLogout }}>
+    <AuthContext.Provider value={{
+      discordAuthInfo, discordLogin, discordLogout, isSignedIn, authLoading,
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );
