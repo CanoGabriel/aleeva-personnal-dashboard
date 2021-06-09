@@ -1,0 +1,37 @@
+@import "../../../../core/style/color.scss";
+
+.login-page {
+  display: flex;
+  // flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: $black;
+
+  .login-page__signin {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 300px;
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    
+    .signin__text {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .signin__button {
+      border-radius: 8px;
+      padding: 12px 16px;
+      background-color: $discord-blue;
+    }
+    
+  }
+  
+  
+  .discord-logo {
+    height: 2rem;
+  }
+}
