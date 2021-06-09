@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../components/auth-context/auth-context";
+import { getCurrentDiscordUser } from "../../discord.services";
 
 const HomePage = () => {
-  const { discordAuthInfo, discordLogout } = useContext(AuthContext);
+  const { discordLogout } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    getCurrentDiscordUser().then((response) => {
+      setCurrentUser(response.data);
+    });
+  }, []);
   return (
     <div>
-      <pre>{JSON.stringify(discordAuthInfo, null, 2)}</pre>
+      <pre>{JSON.stringify(currentUser, null, 2)}</pre>
       <button type="button" onClick={discordLogout}>Logout</button>
     </div>
   );
