@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getLocalstorageAleevaAuthInfo } from "../../domains/aleeva/utils/auth-localstorage-utils";
+
 const { REACT_APP_ALEEVA_API_URL } = process.env;
 
 const aleevaAxiosInstanceOptions = {
@@ -25,7 +26,6 @@ const aleevaAxiosSetup = () => {
     }
     return reqConfig;
   });
-
 
   // TODO Handle automatique accessToken refresh on 401
   // TODO Handle rate limit security

@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../../domains/discord";
+import { DiscordAuthContext } from "../../../domains/discord";
 import { getCurrentDiscordUser } from "../../../domains/discord/discord.services";
 
 const HomePage = () => {
-  const { discordLogout } = useContext(AuthContext);
+  const { discordLogout } = useContext(DiscordAuthContext);
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {

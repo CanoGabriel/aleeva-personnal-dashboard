@@ -51,7 +51,8 @@
             }
         ],
         "no-unused-vars": [
-            "warning"
-        ]
+            1
+        ],
+        "react/require-default-props": 0
     }
 }
