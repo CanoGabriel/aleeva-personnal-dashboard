@@ -2,10 +2,9 @@ import React from "react";
 import {
   BrowserRouter as Router, Route, Switch,
 } from "react-router-dom";
-import {
-  ErrorNotFound, HomePage, AuthProvider, AuthenticateRoute,
-} from "./core";
+import { ErrorNotFound, HomePage } from "./core";
 import { LoginPage } from "./domains/user";
+import { AuthProvider, AuthenticateRoute } from "./domains/discord";
 import "./app.scss";
 
 const App = () => (

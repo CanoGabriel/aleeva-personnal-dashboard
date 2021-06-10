@@ -1,4 +1,4 @@
-import { discordHttp } from "../config";
+import { discordHttp } from "../../config";
 
 const getCurrentDiscordUser = async () => discordHttp.get("/users/@me");
 

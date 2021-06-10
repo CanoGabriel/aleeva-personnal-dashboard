@@ -1,7 +1,7 @@
 const discordAuthInfoLocastorageKey = "discord-auth-info";
 
 /**
- * Get auth information from localstorage
+ * Get discord auth information from localstorage
  * @returns { { accessToken: string, refreshToken: string, scope: string } | null };
  */
 const getLocalstorageDiscordAuthInfo = () => {

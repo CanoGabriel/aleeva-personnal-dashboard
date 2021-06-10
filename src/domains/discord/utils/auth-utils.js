@@ -1,6 +1,6 @@
 import randombytes from "randombytes";
 import qs from "qs";
-import { discordHttp } from "../../config";
+import { discordHttp } from "../../../config";
 
 const {
   REACT_APP_DISCORD_API_URL: discordApiUrl,

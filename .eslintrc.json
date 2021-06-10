@@ -49,6 +49,9 @@
             {
                 "code": 150
             }
+        ],
+        "no-unused-vars": [
+            "warning"
         ]
     }
 }

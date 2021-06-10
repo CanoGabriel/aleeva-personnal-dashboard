@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../../core";
+import { AuthContext } from "../../../discord";
 import { ReactComponent as DiscordLogo } from "../../assets/discord-logo.svg";
 import "./login-page.scss";
 
