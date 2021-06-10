@@ -73,6 +73,10 @@ const DiscordAuthProvider = ({ children }) => {
       discordAuthInfo, discordLogin, discordLogout, isSignedIn, authLoading,
     }}
     >
+      <pre>
+        Discord
+        {JSON.stringify(discordAuthInfo, null, 2)}
+      </pre>
       {children}
     </DiscordAuthContext.Provider>
   );

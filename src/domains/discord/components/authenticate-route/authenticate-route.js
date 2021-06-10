@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Redirect, Route } from "react-router-dom";
-import { DiscordAuthContext } from "../auth-context/auth-context";
+import { DiscordAuthContext } from "../discord-auth-context/discord-auth-context";
 
 const AuthenticateRoute = (props) => {
   const { component: Component, path, ...rest } = props;

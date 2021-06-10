@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { ReactComponent as DiscordLogo } from "../../assets/discord-logo.svg";
-import { DiscordAuthContext } from "../auth-context/auth-context";
+import { DiscordAuthContext } from "../discord-auth-context/discord-auth-context";
 import "./discord-login-button.scss";
 
 const DiscordLoginButton = (props) => {

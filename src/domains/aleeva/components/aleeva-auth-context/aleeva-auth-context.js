@@ -43,7 +43,10 @@ const AleevaAuthProvider = ({ children }) => {
       aleevaAuthInfo, aleevaLogin, aleevaLogout, isAleevaSignIn,
     }}
     >
-      <pre>{JSON.stringify(aleevaAuthInfo, null, 2)}</pre>
+      <pre>
+        Aleeva
+        {JSON.stringify(aleevaAuthInfo, null, 2)}
+      </pre>
       {children}
     </AleevaAuthContext.Provider>
   );

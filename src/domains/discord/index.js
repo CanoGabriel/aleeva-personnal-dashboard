@@ -1,4 +1,4 @@
-export * from "./components/auth-context/auth-context";
+export * from "./components/discord-auth-context/discord-auth-context";
 export { default as DiscordAuthenticateRoute } from "./components/authenticate-route/authenticate-route";
 export * as DiscordService from "./discord.services";
 export * as DiscordAuthLocalstorage from "./utils/auth-localstorage-utils";
