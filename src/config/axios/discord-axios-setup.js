@@ -27,7 +27,7 @@ const discordAxiosSetup = () => {
     return reqConfig;
   });
 
-  // TODO Handle automatique accessToken refresh on 401
+  // TODO Handle auto accessToken refresh on 401
   // TODO Handle rate limit security
 
   return axiosInstance;

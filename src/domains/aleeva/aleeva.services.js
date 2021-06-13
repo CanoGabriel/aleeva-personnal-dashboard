@@ -28,5 +28,9 @@ const getAleevaToken = async (params) => {
   return aleevaHttp.post("/auth/token", body, config);
 };
 
+// bug on pre-flight Option request "CORS missong allow origin"
+// const revokeAleevaToken = async () => aleevaHttp.delete("/auth/token");
+const revokeAleevaToken = async () => {};
+
 // eslint-disable-next-line import/prefer-default-export
-export { getAleevaToken };
+export { getAleevaToken, revokeAleevaToken };

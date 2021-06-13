@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { AleevaAuthContext } from "../aleeva-auth-context/aleeva-auth-context";
@@ -8,15 +8,21 @@ const DiscordLoginButton = (props) => {
   const { className } = props;
 
   const { aleevaLogin } = useContext(AleevaAuthContext);
+  const [accessCode, setAccessCode] = useState();
+
+  const handleClick = () => {
+    if (accessCode) {
+      aleevaLogin(accessCode);
+    }
+  };
 
   return (
-    <button
-      className={classnames("aleeva-login-button", className)}
-      type="button"
-      onClick={() => aleevaLogin("T1OG5Jjqh20zaWQqNitmvFBakjR6ukmLcjkBWP4CFvBktdpkJtJTkFKc6oI0OGb5cxOAZCxZJ5aRrfij")}
-    >
-      Aleeva login !
-    </button>
+    <>
+      <input type="text" value={accessCode} onChange={(e) => setAccessCode(e.target.value)} />
+      <button className={classnames("aleeva-login-button", className)} type="button" onClick={handleClick}>
+        Aleeva login !
+      </button>
+    </>
   );
 };
 

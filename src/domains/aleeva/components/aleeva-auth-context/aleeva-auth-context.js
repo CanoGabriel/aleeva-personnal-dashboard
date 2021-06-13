@@ -2,7 +2,7 @@ import React, {
   useState, useEffect, useMemo, createContext,
 } from "react";
 import PropTypes from "prop-types";
-import { getAleevaToken } from "../../aleeva.services";
+import { getAleevaToken, revokeAleevaToken } from "../../aleeva.services";
 import {
   getLocalstorageAleevaAuthInfo, setLocalstorageAleevaAuthInfo, clearLocalstorageAleevaAuthInfo,
 } from "../../utils/auth-localstorage-utils";
@@ -24,9 +24,10 @@ const AleevaAuthProvider = ({ children }) => {
   };
 
   const aleevaLogout = () => {
-    // TODO revoke token
-    clearLocalstorageAleevaAuthInfo();
-    setAleevaAuthInfo({});
+    revokeAleevaToken().then(() => {
+      clearLocalstorageAleevaAuthInfo();
+      setAleevaAuthInfo({});
+    });
   };
 
   const setupAleevaAuth = () => {
