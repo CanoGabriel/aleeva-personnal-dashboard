@@ -6,7 +6,6 @@ import { ErrorNotFound, LocaleContextProvider, HomePage } from "./core";
 import { LoginPage } from "./domains/user";
 import { DiscordAuthProvider, DiscordAuthenticateRoute } from "./domains/discord";
 import { AleevaAuthProvider } from "./domains/aleeva";
-import "./core/locale";
 
 import "./app.scss";
 
