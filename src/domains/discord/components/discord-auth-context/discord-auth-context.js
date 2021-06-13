@@ -11,9 +11,9 @@ import {
   getLocalstorageDiscordAuthInfo, setLocalstorageDiscordAuthInfo, clearLocalstorageDiscordAuthInfo,
 } from "../../utils/auth-localstorage-utils";
 
-const AuthContext = createContext({});
+const DiscordAuthContext = createContext({});
 
-const AuthProvider = ({ children }) => {
+const DiscordAuthProvider = ({ children }) => {
   const [discordAuthInfo, setDiscordAuthInfo] = useState({});
   const [authLoading, setAuthLoading] = useState(true);
 
@@ -69,17 +69,21 @@ const AuthProvider = ({ children }) => {
   }, [queryParam]);
 
   return (
-    <AuthContext.Provider value={{
+    <DiscordAuthContext.Provider value={{
       discordAuthInfo, discordLogin, discordLogout, isSignedIn, authLoading,
     }}
     >
+      <pre>
+        Discord
+        {JSON.stringify(discordAuthInfo, null, 2)}
+      </pre>
       {children}
-    </AuthContext.Provider>
+    </DiscordAuthContext.Provider>
   );
 };
 
-AuthProvider.propTypes = {
+DiscordAuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { AuthContext, AuthProvider };
+export { DiscordAuthContext, DiscordAuthProvider };
