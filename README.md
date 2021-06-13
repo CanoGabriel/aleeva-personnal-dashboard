@@ -14,6 +14,7 @@ npm start
 ## Environment variable:
 
 ```
+# Discord API setup
 # The discord's api URL
 REACT_APP_DISCORD_API_URL=https://discord.com/api
 
@@ -28,4 +29,13 @@ REACT_APP_DISCORD_LOGIN_REDIRECT=http://localhost:3000
 
 # Authorization scope needed by this dashboard on discord API
 REACT_APP_DISCORD_AUTH_SCOPE=identify
+
+
+# Aleeva API Setup
+# The aleeva client id
+REACT_APP_ALEEVA_CLIENT_ID=
+# The aleeva client secret
+REACT_APP_ALEEVA_CLIENT_SECRET=
+# The aleeva auth scopes 
+REACT_APP_ALEEVA_AUTH_SCOPE=
 ```
