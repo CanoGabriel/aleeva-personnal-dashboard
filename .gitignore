@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+default.conf
+Dockerfile
+nginx.conf
 # dependencies
 /node_modules
 /.pnp
